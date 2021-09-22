@@ -17,7 +17,13 @@ function plantillaResultado(respuestas) {
 }
 
 window.onload = function () {
-    init();
+    if(typeof data == undefined) {
+        init();
+    } else {
+        // No han sido cargadas las preguntas
+        let status = document.getElementById('status');
+        status.innerText = "No ha sido encontrado el fichero 'quiz.js' dentro de la carpeta 'quiz'.";
+    }
 }
 
 function init() {
