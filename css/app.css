@@ -1,0 +1,8 @@
+body {
+    background-image: url('../img/body.png');
+    background-repeat: repeat;
+}
+
+.border-radius-none {
+    border-radius: 0;
+}
