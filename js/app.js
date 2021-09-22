@@ -1,6 +1,5 @@
 /*!
  * Easy Static Quiz by @alejandromaring - https://github.com/alejandromaringomez
- * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 
 var time, timer;
@@ -17,7 +16,7 @@ function plantillaResultado(respuestas) {
 }
 
 window.onload = function () {
-    if(typeof data == undefined) {
+    if(typeof data !== 'undefined') {
         init();
     } else {
         // No han sido cargadas las preguntas
