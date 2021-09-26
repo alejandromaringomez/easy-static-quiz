@@ -1,0 +1,20 @@
+[
+    {
+        "pregunta": "Mi primera pregunta",
+        "respuestas": [
+            {"respuesta": "Mi primera respuesta", "correcta": "true"},
+            {"respuesta": "Mi segunda respuesta", "correcta": "true"},
+            {"respuesta": "Mi tercera respuesta", "correcta": "false"},
+            {"respuesta": "Mi cuarta respuesta", "correcta": "false"}
+        ]
+    },
+    {
+        "pregunta": "Mi segunda pregunta",
+        "respuestas": [
+            {"respuesta": "Mi quinta respuesta", "correcta": "false"},
+            {"respuesta": "Mi sexta respuesta", "correcta": "true"},
+            {"respuesta": "Mi séptima respuesta", "correcta": "false"},
+            {"respuesta": "Mi octava respuesta", "correcta": "true"}
+        ]
+    }
+]

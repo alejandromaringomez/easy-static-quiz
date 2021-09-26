@@ -16,19 +16,17 @@ function plantillaResultado(respuestas) {
     return cadena;
 }
 
-window.onload = function () {
-    if(typeof data == undefined) {
-        init();
-    } else {
-        // No han sido cargadas las preguntas
-        let status = document.getElementById('status');
-        status.innerText = "No ha sido encontrado el fichero 'quiz.js' dentro de la carpeta 'quiz'.";
-    }
-}
-
 function init() {
-    mostrarPreguntas();
-    initCountdown(0);
+    let subir = document.getElementById('subir');
+    if(subir) {
+        subir.classList.add('d-none');
+        let juego = document.getElementById('juego');
+        if(juego) {
+            juego.classList.remove('d-none');
+            mostrarPreguntas();
+            initCountdown(0);
+        }
+    }
 }
 
 function initCountdown(second = 0) {
@@ -92,7 +90,7 @@ function generarHtmlPregunta(indexPregunta, pregunta) {
     // Ordenamos aleatoriamente las respuestas y creamos su HTML correspondiente
     let respuestas = arrayOrdenAleatorio(pregunta.respuestas);
     respuestas.forEach((element, indexRespuesta) => {
-        let respuesta = generarHtmlRespuesta(indexPregunta, indexRespuesta, element[0], element[1]);
+        let respuesta = generarHtmlRespuesta(indexPregunta, indexRespuesta, element['respuesta'], element['correcta']);
         cuerpo.appendChild(respuesta);
     });
     return contenedor;
@@ -205,5 +203,30 @@ function corregir() {
         resultadoGlobalTexto.innerText = plantillaResultado(respuestasGlobal);
         resultadoGlobal.appendChild(resultadoGlobalTexto);
         resultadoGlobal.classList.remove('d-none');
+    }
+}
+
+function jugar() {
+    let ficheros = document.getElementById('fichero');
+    if(ficheros) {
+        if(ficheros.files.length) {
+            let fichero = ficheros.files[0];
+            if(fichero) {
+                let lector = new FileReader();
+                lector.readAsText(fichero, 'UTF-8');
+                lector.onload = function (ev) {
+                    try {
+                        data = JSON.parse(ev.target.result);
+                        init();
+                    } catch(e) {
+                        console.warn('El formato del quiz no es el correcto', e);
+                        alert('El formato del quiz no es el correcto.');
+                    }
+                }
+                lector.onerror = function (ev) {
+                    console.warn('El fichero no ha podido ser abierto.', ev);
+                }
+            }
+        }
     }
 }
