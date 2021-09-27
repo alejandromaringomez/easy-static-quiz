@@ -1,6 +1,5 @@
 /*!
  * Easy Static Quiz by @alejandromaring - https://github.com/alejandromaringomez
- * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 
 var time, timer;
@@ -90,18 +89,19 @@ function generarHtmlPregunta(indexPregunta, pregunta) {
     // Ordenamos aleatoriamente las respuestas y creamos su HTML correspondiente
     let respuestas = arrayOrdenAleatorio(pregunta.respuestas);
     respuestas.forEach((element, indexRespuesta) => {
-        let respuesta = generarHtmlRespuesta(indexPregunta, indexRespuesta, element['respuesta'], element['correcta']);
+        let tipo = respuestas.length > 2 ? 'checkbox' : 'radio'; // Si es tipo test o de más opciones
+        let respuesta = generarHtmlRespuesta(tipo, indexPregunta, indexRespuesta, element['respuesta'], element['correcta']);
         cuerpo.appendChild(respuesta);
     });
     return contenedor;
 }
 
-function generarHtmlRespuesta(indexPregunta, indexRespuesta, respuesta, esCorrecta) {
+function generarHtmlRespuesta(tipo, indexPregunta, indexRespuesta, respuesta, esCorrecta) {
     let respuesta_name = 'pregunta_' + indexPregunta;
     let respuesta_id = respuesta_name + '_respuesta_' + indexRespuesta;
     let div = document.createElement('div');
     let input = document.createElement('input');
-    input.setAttribute('type', 'checkbox');
+    input.setAttribute('type', tipo);
     input.setAttribute('id', respuesta_id);
     input.setAttribute('name', respuesta_name);
     input.dataset.correcta = esCorrecta;
@@ -115,7 +115,7 @@ function generarHtmlRespuesta(indexPregunta, indexRespuesta, respuesta, esCorrec
 }
 
 function deshabilitarOpciones() {
-    let opciones = document.querySelectorAll('input[type="checkbox"]');
+    let opciones = document.querySelectorAll('input[type="radio"], input[type="checkbox"]');
     opciones.forEach((element) => {
         element.setAttribute('disabled', 'disabled');
     });
@@ -159,7 +159,7 @@ function corregir() {
             'incorrectas': 0
         };
         // Iteramos las respuestas de la pregunta correspondiente para verificar si esta bien, bien sin marcar o mal
-        let opciones = element.querySelectorAll('input[type="checkbox"]');
+        let opciones = element.querySelectorAll('input[type="radio"], input[type="checkbox"]');
         opciones.forEach((element) => {
             let contenedor = element.parentElement;
             switch (element.dataset.correcta) {
